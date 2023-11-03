@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { log } from "console";
 
 const ACTIVE_ROUTE = "py-1 px-2 text-gray-300 bg-gray-700";
 const INACTIVE_ROUTE =
@@ -14,6 +16,10 @@ export default function NavMenu() {
 
   return session ? (
     <div>
+      <Avatar>
+        <AvatarImage src={session?.user?.image ?? ""} alt="@shadcn" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
       {session?.user?.name} <br />
       <button onClick={() => signOut()}>Sign out</button>
       <hr className="my-4" />
